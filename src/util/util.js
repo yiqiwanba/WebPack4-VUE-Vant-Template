@@ -7,6 +7,7 @@ import auth from './auth'
 import store from '../store'
 import router from '../router'
 import axios from './axios'
+import {Toast} from 'vant'
 
 /**
  * @author LTY 7/31
@@ -53,10 +54,10 @@ export class AxiosRequest {
             if (error.message) {
                 // 一些错误是在设置请求的时候触发
                 if (error.message.includes('timeout')) {
-                    router.app.$message.error('数据请求超时,请检查网络');
+                    Toast.fail.error('数据请求超时,请检查网络');
                 } else if (error.message.includes('cookie')) {
-                    router.app.$message.error('浏览器阻止了cookie,请求被中断,网页无法正常使用');
-                } else router.app.$message.error(errTitle || error.message);
+                    Toast.fail.error('浏览器阻止了cookie,请求被中断,网页无法正常使用');
+                } else Toast.fail.error(errTitle || error.message);
             }
             throw new Error(error)
         }
@@ -74,20 +75,12 @@ export class AxiosRequest {
 export default {
     /**
      * @author LTY
-     * @description 弹出层封装load,返回当前弹出层index
-     * @param waitText      加载中提示文字
-     * @param timeOut       超时后自动关闭
-     *
+     * @description PX转VW
+     * @param size            px大小
+     * @return number         返回适应当前窗口的字体大小，单位VW
      * */
-    loadWait({waitText = '正在加载', timeOut = 25000}) {
-        return router.app.$message({
-            message: `${waitText}`,
-            type: 'info',
-            iconClass: 'el-icon-loading',
-            duration: timeOut,
-            center: true,
-            customClass: 'messageWait'
-        });
+    getVwUnit(size) {
+        return size / window.screen.width * 100
     },
 
     /**
@@ -98,7 +91,7 @@ export default {
     judge(res) {
         if (res.code === '200') return res.data;
         else {
-            router.app.$message.error(res.message);
+            Toast.fail.error(res.message);
             throw new Error(res.message)
         }
     },

@@ -21,6 +21,21 @@ const authToken = {
         })
     },
 
+    // 设置Authorization
+    setAuthorization(code) {
+        Cookies.set('Authorization', code)
+    },
+
+    // 获取Authorization
+    getAuthorization() {
+        return Cookies.get('Authorization') || ''
+    },
+
+    // 移除TAuthorization
+    removeAuthorization() {
+        Cookies.remove('Authorization')
+    },
+
     // 移除登录状态
     removeLoginStatus() {
         Cookies.remove(this.loginKey)
@@ -28,6 +43,7 @@ const authToken = {
 
     // 退出登录
     logout() {
+        this.removeAuthorization();
         this.removeLoginStatus()
     }
 };

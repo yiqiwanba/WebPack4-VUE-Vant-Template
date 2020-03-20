@@ -8,6 +8,7 @@ import axios from 'axios'
 import router from '../router'
 import Auth from './auth'
 import whiteList from '../router/whiteList'
+import {Toast} from 'vant'
 
 const CancelToken = axios.CancelToken;
 
@@ -41,6 +42,7 @@ service.interceptors.request.use(function (config) {
     if (!navigator.cookieEnabled) { // 如果浏览器阻止了cookie则中断请求
         cancel();
     }
+    config.headers.Authorization = Auth.getAuthorization(); // 在请求中加上Authorization
     if (whiteList.indexOf(router.currentRoute.path) < 0 && whiteList.indexOf(router.currentRoute.name) < 0) {
         Auth.setLoginStatus();// 重置登录时间
     }
@@ -64,37 +66,37 @@ service.interceptors.response.use(function (response) {
     } else if (error.response) {
         switch (error.response.status) {
             case 302:
-                router.app.$message.error('登录超时');
+                Toast.fail('登录超时');
                 router.push('/login', () => []);
                 error.message = '登录超时';
                 Auth.logout();
                 break;
             case 400:
-                router.app.$message.error('请求参数错误');
+                Toast.fail.error('请求参数错误');
                 error.message = '请求参数错误';
                 break;
             case 401:
-                router.app.$message.error('无操作权限');
+                Toast.fail.error('无操作权限');
                 error.message = '无操作权限';
                 break;
             case 403:
-                router.app.$message.error('访问被拒绝');
+                Toast.fail.error('访问被拒绝');
                 error.message = '访问被拒绝';
                 break;
             case 404:
-                router.app.$message.error('无效的访问地址');
+                Toast.fail.error('无效的访问地址');
                 error.message = '无效的访问地址';
                 break;
             case 408:
-                router.app.$message.error('请求超时');
+                Toast.fail.error('请求超时');
                 error.message = '请求超时';
                 break;
             case 504:
-                router.app.$message.error('服务器已断开连接');
+                Toast.fail.error('服务器已断开连接');
                 error.message = '服务器已断开连接';
                 break;
             default:
-                router.app.$message.error(`服务器错误！错误代码：${error.response.status}`)
+                Toast.fail.error(`服务器错误！错误代码：${error.response.status}`)
         }
         return Promise.reject(error.response)
     } else {
