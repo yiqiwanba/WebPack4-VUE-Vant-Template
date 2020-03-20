@@ -2,10 +2,10 @@
     <div class="wscn-http404-container">
         <div class="wscn-http404">
             <div class="pic-404">
-                <img class="pic-404__parent" src="@/assets/images/404_images/404.png" alt="404">
-                <img class="pic-404__child left" src="@/assets/images/404_images/404_cloud.png" alt="404">
-                <img class="pic-404__child mid" src="@/assets/images/404_images/404_cloud.png" alt="404">
-                <img class="pic-404__child right" src="@/assets/images/404_images/404_cloud.png" alt="404">
+                <img class="pic-404__parent" src="~sysStatic/images/404_images/404.png" alt="404">
+                <img class="pic-404__child left" src="~sysStatic/images/404_images/404_cloud.png" alt="404">
+                <img class="pic-404__child mid" src="~sysStatic/images/404_images/404_cloud.png" alt="404">
+                <img class="pic-404__child right" src="~sysStatic/images/404_images/404_cloud.png" alt="404">
             </div>
             <div class="bullshit">
                 <div class="bullshit__oops">OOPS!</div>
@@ -43,18 +43,18 @@
         position: absolute;
         top: 40%;
         left: 50%;
+        width: 100%;
     }
 
     .wscn-http404 {
         position: relative;
-        width: 1200px;
+        width: 100%;
         padding: 0 50px;
         overflow: hidden;
 
         .pic-404 {
             position: relative;
             float: left;
-            width: 600px;
             overflow: hidden;
 
             &__parent {
@@ -66,8 +66,8 @@
 
                 &.left {
                     width: 80px;
-                    top: 17px;
-                    left: 220px;
+                    top: 0;
+                    left: 120px;
                     opacity: 0;
                     animation-name: cloudLeft;
                     animation-duration: 2s;
@@ -79,7 +79,7 @@
                 &.mid {
                     width: 46px;
                     top: 10px;
-                    left: 420px;
+                    left: 320px;
                     opacity: 0;
                     animation-name: cloudMid;
                     animation-duration: 2s;
@@ -102,45 +102,45 @@
 
                 @keyframes cloudLeft {
                     0% {
-                        top: 17px;
-                        left: 220px;
+                        top: 7px;
+                        left: 160px;
                         opacity: 0;
                     }
                     20% {
-                        top: 33px;
-                        left: 188px;
+                        top: 23px;
+                        left: 128px;
                         opacity: 1;
                     }
                     80% {
-                        top: 81px;
-                        left: 92px;
+                        top: 71px;
+                        left: 32px;
                         opacity: 1;
                     }
                     100% {
-                        top: 97px;
-                        left: 60px;
+                        top: 87px;
+                        left: 0;
                         opacity: 0;
                     }
                 }
                 @keyframes cloudMid {
                     0% {
                         top: 10px;
-                        left: 420px;
+                        left: 320px;
                         opacity: 0;
                     }
                     20% {
                         top: 40px;
-                        left: 360px;
+                        left: 260px;
                         opacity: 1;
                     }
                     70% {
                         top: 130px;
-                        left: 180px;
+                        left: 100px;
                         opacity: 1;
                     }
                     100% {
                         top: 160px;
-                        left: 120px;
+                        left: 70px;
                         opacity: 0;
                     }
                 }
@@ -172,7 +172,7 @@
         .bullshit {
             position: relative;
             float: left;
-            width: 300px;
+            width: 100%;
             padding: 30px 0;
             overflow: hidden;
 
